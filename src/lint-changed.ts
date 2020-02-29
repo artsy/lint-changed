@@ -1,0 +1,57 @@
+import util from "util";
+import path from "path";
+import { exec } from "child_process";
+import fs from "fs";
+import µ from "micromatch";
+import pEach from "p-each-series";
+
+interface PkgConfig {
+  ["lint-changed"]?: {
+    [glob: string]: string | string[];
+  };
+}
+
+const run = util.promisify(exec);
+const pkg: PkgConfig = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), "package.json"), "utf-8")
+);
+
+async function runCommand(cmdString: string) {
+  const { stdout, stderr } = await run(cmdString);
+  if (stderr) {
+    throw new Error(stderr);
+  }
+  return stdout;
+}
+
+const git = (args: string) => runCommand(`git ${args}`);
+
+const getBranch = () => git("rev-parse --abbrev-ref HEAD");
+const getLastTag = () => git("describe --tags --abbrev=0 HEAD^");
+const getChangedFiles = (event: string) => git(`diff --name-only ${event}`);
+
+export async function lintChanged() {
+  const lintConfig = pkg["lint-changed"];
+  if (!lintConfig) {
+    console.warn("No `lint-config` found in package.json");
+  } else {
+    const branch = await getBranch();
+    let changedFiles: string[] = [];
+
+    // Determine changed files based on branch
+    if (branch === "master") {
+      changedFiles.push(await getChangedFiles(`${await getLastTag()}..HEAD`));
+    } else {
+      changedFiles.push(await getChangedFiles("origin/master"));
+    }
+    if (changedFiles.length === 0) return;
+
+    Object.entries(lintConfig)
+      .map(([glob, cmds]) => [glob, Array.isArray(cmds) ? cmds : [cmds]])
+      .forEach(async ([glob, commands]) => {
+        µ(changedFiles, glob).forEach(file => {
+          pEach(commands, command => runCommand(`${command} ${file}`));
+        });
+      });
+  }
+}

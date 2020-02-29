@@ -1,0 +1,6 @@
+{
+  "cSpell.words": [
+    "promisify"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
