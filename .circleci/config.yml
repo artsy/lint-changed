@@ -23,12 +23,12 @@ workflows:
           requires:
             - yarn/type-check
             - yarn/update-cache
-      # - auto/publish:
-      #     context: npm-deploy
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      #     requires:
-      #       - yarn/type-check
-      #       - yarn/update-cache
+      - auto/publish:
+          context: npm-deploy
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - yarn/type-check
+            - yarn/update-cache
