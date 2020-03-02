@@ -3,12 +3,17 @@
   "version": "0.0.1",
   "description": "Lint only files that have changed since last update",
   "main": "index.js",
+  "bin": {
+    "lint-changed": "bin/lint-changed.js"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "files": [
-    "lib"
+    "index.js",
+    "bin/",
+    "lib/"
   ],
   "repository": "https://github.com/artsy/lint-changed",
   "author": "Justin Bennett <justin.bennett@artsymail.com>",
