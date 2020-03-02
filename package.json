@@ -14,7 +14,7 @@
   "author": "Justin Bennett <justin.bennett@artsymail.com>",
   "license": "MIT",
   "scripts": {
-    "prepublish": "yarn compile",
+    "prepare": "yarn compile",
     "type-check": "tsc --pretty --noEmit",
     "compile": "tsc"
   },
