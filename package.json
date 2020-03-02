@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Lint only files that have changed since last update",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "files": [
     "lib"
   ],
