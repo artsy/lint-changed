@@ -6,11 +6,11 @@ We waste a lot of time of CI time doing unnecessary tasks. Why lint _all_ your f
 
 ## Configuration
 
-Add a `lint-changed` key to your `package.json` with a pattern of file to match and the command or commands you'd like to run for each changed file. Each command will be ran for every changed file that matches it's pattern.
+Add a `lint-changed` key to your `package.json` with a pattern of files to match and the command or commands you'd like to run for each changed file. Each command will be ran for every changed file that matches it's pattern.
 
 ```json
 {
-  "lint-staged": {
+  "lint-changed": {
     "*.js": ["eslint", "prettier -c"],
     "*.ts": "tslint"
   }
