@@ -29,6 +29,6 @@ workflows:
       #       branches:
       #         only:
       #           - master
-          requires:
-            - yarn/type-check
-            - yarn/update-cache
+      #     requires:
+      #       - yarn/type-check
+      #       - yarn/update-cache
