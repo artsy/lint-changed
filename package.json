@@ -1,6 +1,6 @@
 {
   "name": "@artsy/lint-changed",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Lint only files that have changed since last update",
   "main": "index.js",
   "files": [
@@ -11,6 +11,7 @@
   "license": "MIT",
   "scripts": {
     "prepublish": "yarn compile",
+    "type-check": "tsc --pretty --noEmit",
     "compile": "tsc"
   },
   "lint-changed": {
