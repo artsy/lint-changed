@@ -5,10 +5,10 @@ import fs from "fs";
 import µ from "micromatch";
 import pEach from "p-each-series";
 import to from "await-to-js";
-import { red, yellow } from "kleur";
+import { red, yellow, blue, dim } from "kleur";
 
 const log = (msg: string) => {
-  console.log("[lint-changed]:", msg);
+  console.log(blue(`[lint-changed]: ${msg}`));
 };
 
 const warn = (msg: string) => {
@@ -89,7 +89,9 @@ export async function lintChanged() {
         }).forEach(file => {
           pEach(commands, command => {
             log(`${command} ${file}`);
-            return runCommand(`${command} ${file}`).then(o => log(o));
+            return runCommand(`${command} ${file}`).then(o =>
+              console.log(dim(o))
+            );
           });
         });
       });
