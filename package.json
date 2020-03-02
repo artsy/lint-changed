@@ -20,12 +20,13 @@
     ]
   },
   "dependencies": {
+    "await-to-js": "^2.1.1",
     "kleur": "^3.0.3",
     "micromatch": "^4.0.2",
-    "await-to-js": "^2.1.1",
     "p-each-series": "^2.1.0"
   },
   "devDependencies": {
+    "@artsy/auto-config": "^1.0.2",
     "@types/micromatch": "^4.0.1",
     "@types/node": "^13.7.7",
     "typescript": "^3.8.3"
