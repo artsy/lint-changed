@@ -3,22 +3,30 @@
   "version": "1.0.0",
   "description": "Lint only files that have changed since last update",
   "main": "index.js",
+  "files": [
+    "lib"
+  ],
   "repository": "https://github.com/artsy/lint-changed",
   "author": "Justin Bennett <justin.bennett@artsymail.com>",
   "license": "MIT",
+  "scripts": {
+    "prepublish": "yarn compile",
+    "compile": "tsc"
+  },
   "lint-changed": {
     "*.ts": [
       "echo"
     ]
   },
   "dependencies": {
-    "kleur": "^3.0.3"
+    "kleur": "^3.0.3",
+    "micromatch": "^4.0.2",
+    "await-to-js": "^2.1.1",
+    "p-each-series": "^2.1.0"
   },
   "devDependencies": {
     "@types/micromatch": "^4.0.1",
     "@types/node": "^13.7.7",
-    "micromatch": "^4.0.2",
-    "p-each-series": "^2.1.0",
     "typescript": "^3.8.3"
   }
 }
