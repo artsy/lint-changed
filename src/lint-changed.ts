@@ -35,12 +35,12 @@ async function runCommand(cmdString: string) {
   if (stderr) {
     throw new Error(stderr);
   }
-  return stdout;
+  return stdout.trim();
 }
 
 const git = (args: string) => runCommand(`git ${args}`);
 
-const getBranch = () => git("rev-parse --abbrev-ref HEAD").then(b => b.trim());
+const getBranch = () => git("rev-parse --abbrev-ref HEAD");
 const getLastTag = () => git("describe --tags --abbrev=0 HEAD^");
 const getChangedFiles = (event: string) =>
   git(`diff --name-only ${event}`).then(r => r.split("\n").filter(n => !!n));
@@ -57,14 +57,16 @@ export async function lintChanged() {
     if (branch === "master") {
       const [tagFetchError, lastTag] = await to(getLastTag());
       if (tagFetchError) {
-        error("Unable to retrieve last tag");
+        error(`Unable to retrieve last tag:\n${tagFetchError}`);
         process.exit(1);
       }
       const [changedFilesError, changedFilesList] = await to(
         getChangedFiles(`${lastTag}..HEAD`)
       );
       if (changedFilesError || changedFilesList === undefined) {
-        error("Unable to get changed files since last tag");
+        error(
+          `Unable to get changed files since last tag:\n${changedFilesError}`
+        );
         process.exit(1);
       }
       changedFiles.concat(changedFilesList);
@@ -73,7 +75,9 @@ export async function lintChanged() {
         getChangedFiles(`origin/master`)
       );
       if (changedFilesError || changedFilesList === undefined) {
-        error("Unable to get changed files since origin/master");
+        error(
+          `Unable to get changed files since origin/master:\n${changedFilesError}`
+        );
         process.exit(1);
       }
       changedFiles = changedFiles.concat(changedFilesList);
