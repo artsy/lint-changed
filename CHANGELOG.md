@@ -1,3 +1,15 @@
+# v3.0.2 (Thu Mar 05 2020)
+
+#### 🐛  Bug Fix
+
+- Refactor for legibility [#4](https://github.com/artsy/lint-changed/pull/4) ([@zephraph](https://github.com/zephraph))
+
+#### Authors: 1
+
+- Justin Bennett ([@zephraph](https://github.com/zephraph))
+
+---
+
 # v3.0.1 (Wed Mar 04 2020)
 
 #### 🐛  Bug Fix
