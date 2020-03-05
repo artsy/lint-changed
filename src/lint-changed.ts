@@ -45,59 +45,89 @@ const getLastTag = () => git("describe --tags --abbrev=0 HEAD^");
 const getChangedFiles = (event: string) =>
   git(`diff --name-only ${event}`).then(r => r.split("\n").filter(n => !!n));
 
+/**
+ * Checks for files that have changed since the last tag on the master branch
+ */
+const checkMasterForChangedFiles = async () => {
+  const [tagFetchError, lastTag] = await to(getLastTag());
+  if (tagFetchError) {
+    error(`Unable to retrieve last tag:\n${tagFetchError}`);
+    process.exit(1);
+  }
+  const [changedFilesError, changedFilesList] = await to(
+    getChangedFiles(`${lastTag}..HEAD`)
+  );
+  if (changedFilesError || changedFilesList === undefined) {
+    error(`Unable to get changed files since last tag:\n${changedFilesError}`);
+    process.exit(1);
+  }
+  if (changedFilesList.length > 0) {
+    log(
+      `Files changed since ${lastTag}:\n${dim(changedFilesList.join("\n"))}\n`
+    );
+  }
+  return changedFilesList;
+};
+
+/**
+ * Checks for  files that have changed since origin/master
+ */
+const checkFeatureBranchForChangedFiles = async () => {
+  const [changedFilesError, changedFilesList] = await to(
+    getChangedFiles(`origin/master`)
+  );
+  if (changedFilesError || changedFilesList === undefined) {
+    error(
+      `Unable to get changed files since origin/master:\n${changedFilesError}`
+    );
+    process.exit(1);
+  }
+  if (changedFilesList.length > 0) {
+    log(
+      `Files changed since origin/master:\n${dim(
+        changedFilesList.join("\n")
+      )}\n`
+    );
+  }
+  return changedFilesList;
+};
+
 export async function lintChanged() {
   const lintConfig = pkg["lint-changed"];
+
+  // Fail if nothing is configured to run
   if (!lintConfig) {
     warn("No `lint-config` found in package.json");
-  } else {
-    const branch = await getBranch();
-    let changedFiles: string[] = [];
+    process.exit(1);
+  }
 
-    // Determine changed files based on branch
-    if (branch === "master") {
-      const [tagFetchError, lastTag] = await to(getLastTag());
-      if (tagFetchError) {
-        error(`Unable to retrieve last tag:\n${tagFetchError}`);
-        process.exit(1);
-      }
-      const [changedFilesError, changedFilesList] = await to(
-        getChangedFiles(`${lastTag}..HEAD`)
-      );
-      if (changedFilesError || changedFilesList === undefined) {
-        error(
-          `Unable to get changed files since last tag:\n${changedFilesError}`
-        );
-        process.exit(1);
-      }
-      changedFiles.concat(changedFilesList);
-    } else {
-      const [changedFilesError, changedFilesList] = await to(
-        getChangedFiles(`origin/master`)
-      );
-      if (changedFilesError || changedFilesList === undefined) {
-        error(
-          `Unable to get changed files since origin/master:\n${changedFilesError}`
-        );
-        process.exit(1);
-      }
-      changedFiles = changedFiles.concat(changedFilesList);
-    }
-    if (changedFiles.length === 0) return;
+  const branch = await getBranch();
 
-    Object.entries(lintConfig)
-      .map(([glob, cmds]) => [glob, Array.isArray(cmds) ? cmds : [cmds]])
-      .forEach(async ([glob, commands]) => {
-        µ(changedFiles, glob, {
-          dot: true,
-          matchBase: !glob.includes("/")
-        }).forEach(file => {
-          pEach(commands, command => {
-            log(`${command} ${file}`);
-            return runCommand(`${command} ${file}`).then(o =>
-              console.log(dim(o))
-            );
-          });
+  // Determine changed files based on branch
+  let changedFiles: string[] =
+    branch === "master"
+      ? await checkMasterForChangedFiles()
+      : await checkFeatureBranchForChangedFiles();
+
+  // Exit early if no files have changed
+  if (changedFiles.length === 0) {
+    log("No files changed, skipping linting");
+    return;
+  }
+
+  Object.entries(lintConfig)
+    .map(([glob, cmds]) => [glob, Array.isArray(cmds) ? cmds : [cmds]])
+    .forEach(async ([glob, commands]) => {
+      µ(changedFiles, glob, {
+        dot: true,
+        matchBase: !glob.includes("/")
+      }).forEach(file => {
+        pEach(commands, command => {
+          log(`${command} ${file}`);
+          return runCommand(`${command} ${file}`).then(o =>
+            console.log(blue(dim(o)))
+          );
         });
       });
-  }
+    });
 }
