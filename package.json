@@ -35,9 +35,9 @@
     "p-each-series": "^2.1.0"
   },
   "devDependencies": {
-    "@artsy/auto-config": "^1.0.2",
-    "@types/micromatch": "^4.0.1",
-    "@types/node": "^13.7.7",
-    "typescript": "^3.8.3"
+    "@artsy/auto-config": "1.0.2",
+    "@types/micromatch": "4.0.1",
+    "@types/node": "13.7.7",
+    "typescript": "3.8.3"
   }
 }
