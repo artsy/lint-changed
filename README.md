@@ -1,6 +1,6 @@
 # @artsy/lint-changed
 
-_This package is inspired heavily by [lint-staged](https://github.com/okonet/lint-staged#readme)._
+_This package is inspired heavily by [lint-staged](https://github.com/okonet/lint-staged#readme). Also checkout [pull-lock](https://github.com/orta/pull-lock)._
 
 We waste a lot of time of CI time doing unnecessary tasks. Why lint _all_ your files when git already tells you which files have changed? **@artsy/lint-changed** helps by only running lint tags for the files that have changed since master (when not on master) or since the last tag (if you _are_ on master).
 
