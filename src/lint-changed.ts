@@ -72,9 +72,9 @@ const checkMasterForChangedFiles = async () => {
 /**
  * Checks for  files that have changed since origin/master
  */
-const checkFeatureBranchForChangedFiles = async () => {
+const checkFeatureBranchForChangedFiles = async (branch: string) => {
   const [changedFilesError, changedFilesList] = await to(
-    getChangedFiles(`origin/master`)
+    getChangedFiles(`master...${branch}`)
   );
   if (changedFilesError || changedFilesList === undefined) {
     error(
@@ -107,7 +107,7 @@ export async function lintChanged() {
   let changedFiles: string[] =
     branch === "master"
       ? await checkMasterForChangedFiles()
-      : await checkFeatureBranchForChangedFiles();
+      : await checkFeatureBranchForChangedFiles(branch);
 
   // Exit early if no files have changed
   if (changedFiles.length === 0) {
