@@ -1,3 +1,27 @@
+# v3.0.3 (Wed Mar 18 2020)
+
+#### 🐛  Bug Fix
+
+- Lint only files changed since branch off of master [#12](https://github.com/artsy/lint-changed/pull/12) ([@zephraph](https://github.com/zephraph))
+
+#### 📝  Documentation
+
+- Add a shout-out to `pull-lock` [#11](https://github.com/artsy/lint-changed/pull/11) ([@zephraph](https://github.com/zephraph))
+
+#### 🏠  Internal
+
+- Update auto orb to v1.1.0 [#9](https://github.com/artsy/lint-changed/pull/9) ([@renovate-bot](https://github.com/renovate-bot))
+- Pin dependencies [#8](https://github.com/artsy/lint-changed/pull/8) ([@renovate-bot](https://github.com/renovate-bot))
+- Add renovate config [#7](https://github.com/artsy/lint-changed/pull/7) ([@zephraph](https://github.com/zephraph))
+- Add artsy OSS banner [#5](https://github.com/artsy/lint-changed/pull/5) ([@zephraph](https://github.com/zephraph))
+
+#### Authors: 2
+
+- Justin Bennett ([@zephraph](https://github.com/zephraph))
+- WhiteSource Renovate ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v3.0.2 (Thu Mar 05 2020)
 
 #### 🐛  Bug Fix
