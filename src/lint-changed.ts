@@ -4,8 +4,11 @@ import { exec } from "child_process";
 import fs from "fs";
 import µ from "micromatch";
 import pEach from "p-each-series";
+import pLimit from "p-limit";
 import to from "await-to-js";
 import { red, yellow, blue, dim } from "kleur";
+
+const limit = pLimit(8);
 
 const log = (msg: string) => {
   console.log(blue(`[lint-changed]: ${msg}`));
@@ -18,6 +21,9 @@ const warn = (msg: string) => {
 const error = (msg: string) => {
   console.error(red(`[lint-changed]: ${msg}`));
 };
+
+const filterOutNonExistentFiles = (files: string[]) =>
+  files.filter(file => fs.existsSync(path.join(process.cwd(), file)));
 
 interface PkgConfig {
   ["lint-changed"]?: {
@@ -61,12 +67,15 @@ const checkMasterForChangedFiles = async () => {
     error(`Unable to get changed files since last tag:\n${changedFilesError}`);
     process.exit(1);
   }
-  if (changedFilesList.length > 0) {
+  const existingChangedFiles = filterOutNonExistentFiles(changedFilesList);
+  if (existingChangedFiles.length > 0) {
     log(
-      `Files changed since ${lastTag}:\n${dim(changedFilesList.join("\n"))}\n`
+      `Files changed since ${lastTag}:\n${dim(
+        existingChangedFiles.join("\n")
+      )}\n`
     );
   }
-  return changedFilesList;
+  return existingChangedFiles;
 };
 
 /**
@@ -82,14 +91,15 @@ const checkFeatureBranchForChangedFiles = async (branch: string) => {
     );
     process.exit(1);
   }
-  if (changedFilesList.length > 0) {
+  const existingChangedFiles = filterOutNonExistentFiles(changedFilesList);
+  if (existingChangedFiles.length > 0) {
     log(
       `Files changed since origin/master:\n${dim(
-        changedFilesList.join("\n")
+        existingChangedFiles.join("\n")
       )}\n`
     );
   }
-  return changedFilesList;
+  return existingChangedFiles;
 };
 
 export async function lintChanged() {
@@ -124,8 +134,10 @@ export async function lintChanged() {
       }).forEach(file => {
         pEach(commands, command => {
           log(`${command} ${file}`);
-          return runCommand(`${command} ${file}`).then(o =>
-            console.log(blue(dim(o)))
+          return limit(() =>
+            runCommand(`${command} ${file}`).then(o =>
+              console.log(blue(dim(o)))
+            )
           );
         });
       });
