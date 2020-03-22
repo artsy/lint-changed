@@ -1,6 +1,6 @@
 {
   "name": "@artsy/lint-changed",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Lint only files that have changed since last update",
   "main": "index.js",
   "bin": {
