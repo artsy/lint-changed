@@ -1,3 +1,15 @@
+# v3.0.4 (Sun Mar 22 2020)
+
+#### 🐛  Bug Fix
+
+- Only lint existing files, limit concurrency [#13](https://github.com/artsy/lint-changed/pull/13) ([@zephraph](https://github.com/zephraph))
+
+#### Authors: 1
+
+- Justin Bennett ([@zephraph](https://github.com/zephraph))
+
+---
+
 # v3.0.3 (Wed Mar 18 2020)
 
 #### 🐛  Bug Fix
