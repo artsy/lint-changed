@@ -23,9 +23,10 @@ const error = (msg: string) => {
 };
 
 const filterOutNonExistentFiles = (files: string[]) =>
-  files.filter(file => fs.existsSync(path.join(process.cwd(), file)));
+  files.filter((file) => fs.existsSync(path.join(process.cwd(), file)));
 
 interface PkgConfig {
+  ["lint-changed-branch"]?: string;
   ["lint-changed"]?: {
     [glob: string]: string | string[];
   };
@@ -49,12 +50,14 @@ const git = (args: string) => runCommand(`git ${args}`);
 const getBranch = () => git("rev-parse --abbrev-ref HEAD");
 const getLastTag = () => git("describe --tags --abbrev=0 HEAD^");
 const getChangedFiles = (event: string) =>
-  git(`diff --name-only ${event}`).then(r => r.split("\n").filter(n => !!n));
+  git(`diff --name-only ${event}`).then((r) =>
+    r.split("\n").filter((n) => !!n)
+  );
 
 /**
- * Checks for files that have changed since the last tag on the master branch
+ * Checks for files that have changed since the last tag on the base branch
  */
-const checkMasterForChangedFiles = async () => {
+const checkBaseBranchForChangedFiles = async () => {
   const [tagFetchError, lastTag] = await to(getLastTag());
   if (tagFetchError) {
     error(`Unable to retrieve last tag:\n${tagFetchError}`);
@@ -79,22 +82,25 @@ const checkMasterForChangedFiles = async () => {
 };
 
 /**
- * Checks for  files that have changed since origin/master
+ * Checks for  files that have changed since baseBranch
  */
-const checkFeatureBranchForChangedFiles = async (branch: string) => {
+const checkFeatureBranchForChangedFiles = async (
+  baseBranch: string,
+  branch: string
+) => {
   const [changedFilesError, changedFilesList] = await to(
-    getChangedFiles(`master...${branch}`)
+    getChangedFiles(`${baseBranch}...${branch}`)
   );
   if (changedFilesError || changedFilesList === undefined) {
     error(
-      `Unable to get changed files since origin/master:\n${changedFilesError}`
+      `Unable to get changed files since ${baseBranch}:\n${changedFilesError}`
     );
     process.exit(1);
   }
   const existingChangedFiles = filterOutNonExistentFiles(changedFilesList);
   if (existingChangedFiles.length > 0) {
     log(
-      `Files changed since origin/master:\n${dim(
+      `Files changed since ${baseBranch}:\n${dim(
         existingChangedFiles.join("\n")
       )}\n`
     );
@@ -104,10 +110,18 @@ const checkFeatureBranchForChangedFiles = async (branch: string) => {
 
 export async function lintChanged() {
   const lintConfig = pkg["lint-changed"];
+  const baseBranch = pkg["lint-changed-branch"] || "master";
+
+  // Warn if branch is not specified
+  if (!lintConfig) {
+    warn(
+      "No `lint-changed-branch` found in package.json, falling back to 'master'"
+    );
+  }
 
   // Fail if nothing is configured to run
   if (!lintConfig) {
-    warn("No `lint-config` found in package.json");
+    warn("No `lint-changed` found in package.json");
     process.exit(1);
   }
 
@@ -115,9 +129,9 @@ export async function lintChanged() {
 
   // Determine changed files based on branch
   let changedFiles: string[] =
-    branch === "master"
-      ? await checkMasterForChangedFiles()
-      : await checkFeatureBranchForChangedFiles(branch);
+    branch === baseBranch
+      ? await checkBaseBranchForChangedFiles()
+      : await checkFeatureBranchForChangedFiles(baseBranch, branch);
 
   // Exit early if no files have changed
   if (changedFiles.length === 0) {
@@ -130,12 +144,12 @@ export async function lintChanged() {
     .forEach(async ([glob, commands]) => {
       µ(changedFiles, glob, {
         dot: true,
-        matchBase: !glob.includes("/")
-      }).forEach(file => {
-        pEach(commands, command => {
+        matchBase: !glob.includes("/"),
+      }).forEach((file) => {
+        pEach(commands, (command) => {
           log(`${command} ${file}`);
           return limit(() =>
-            runCommand(`${command} ${file}`).then(o =>
+            runCommand(`${command} ${file}`).then((o) =>
               console.log(blue(dim(o)))
             )
           );
