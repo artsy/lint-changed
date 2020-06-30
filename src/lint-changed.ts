@@ -93,8 +93,12 @@ const checkFeatureBranchForChangedFiles = async (
   baseBranch: string,
   branch: string
 ) => {
-  log("Checking for files that have changed on ${branch} since ${baseBranch}");
-  const mergeBase = await getMergeBase(baseBranch);
+  log(`Checking for files that have changed on ${branch} since ${baseBranch}`);
+  const [mergeBaseError, mergeBase] = await to(getMergeBase(baseBranch));
+  if (mergeBaseError) {
+    error(`Unable to retrieve merge base:\n${mergeBaseError}`);
+    process.exit(1);
+  }
   const [changedFilesError, changedFilesList] = await to(
     getChangedFiles(`${branch} ${mergeBase}`)
   );
