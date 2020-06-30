@@ -89,12 +89,9 @@ const checkReleaseBranchForChangedFiles = async () => {
 /**
  * Checks for  files that have changed since baseBranch
  */
-const checkFeatureBranchForChangedFiles = async (
-  baseBranch: string,
-  branch: string
-) => {
+const checkFeatureBranchForChangedFiles = async (baseBranch: string) => {
   log("Checking for files that have changed since base branch");
-  const mergeBase = getMergeBase(baseBranch);
+  const mergeBase = await getMergeBase(baseBranch);
   const [changedFilesError, changedFilesList] = await to(
     getChangedFiles(`${baseBranch} ${mergeBase}`)
   );
@@ -146,7 +143,7 @@ export async function lintChanged() {
   let changedFiles: string[] =
     branch === releaseBranch
       ? await checkReleaseBranchForChangedFiles()
-      : await checkFeatureBranchForChangedFiles(baseBranch, branch);
+      : await checkFeatureBranchForChangedFiles(baseBranch);
 
   // Exit early if no files have changed
   if (changedFiles.length === 0) {
