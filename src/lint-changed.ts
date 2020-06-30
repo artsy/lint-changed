@@ -49,6 +49,9 @@ const git = (args: string) => runCommand(`git ${args}`);
 
 const getBranch = () => git("rev-parse --abbrev-ref HEAD");
 const getLastTag = () => git("describe --tags --abbrev=0 HEAD^");
+const getMergeBase = (baseBranch: string) =>
+  git("merge-base HEAD ${baseBranch}");
+
 const getChangedFiles = (event: string) =>
   git(`diff --name-only ${event}`).then((r) =>
     r.split("\n").filter((n) => !!n)
@@ -58,13 +61,14 @@ const getChangedFiles = (event: string) =>
  * Checks for files that have changed since the last tag on the base branch
  */
 const checkBaseBranchForChangedFiles = async () => {
+  log("Checking for files that have changed since last tag on base branch");
   const [tagFetchError, lastTag] = await to(getLastTag());
   if (tagFetchError) {
     error(`Unable to retrieve last tag:\n${tagFetchError}`);
     process.exit(1);
   }
   const [changedFilesError, changedFilesList] = await to(
-    getChangedFiles(`${lastTag}..HEAD`)
+    getChangedFiles(`${lastTag}...`)
   );
   if (changedFilesError || changedFilesList === undefined) {
     error(`Unable to get changed files since last tag:\n${changedFilesError}`);
@@ -88,8 +92,10 @@ const checkFeatureBranchForChangedFiles = async (
   baseBranch: string,
   branch: string
 ) => {
+  log("Checking for files that have changed since base branch");
+  const mergeBase = getMergeBase(baseBranch);
   const [changedFilesError, changedFilesList] = await to(
-    getChangedFiles(`${baseBranch}...${branch}`)
+    getChangedFiles(`${baseBranch} ${mergeBase}`)
   );
   if (changedFilesError || changedFilesList === undefined) {
     error(
