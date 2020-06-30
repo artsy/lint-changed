@@ -60,8 +60,8 @@ const getChangedFiles = (event: string) =>
 /**
  * Checks for files that have changed since the last tag on the base branch
  */
-const checkBaseBranchForChangedFiles = async () => {
-  log("Checking for files that have changed since last tag on base branch");
+const checkReleaseBranchForChangedFiles = async () => {
+  log("Checking for files that have changed since last tag on release branch");
   const [tagFetchError, lastTag] = await to(getLastTag());
   if (tagFetchError) {
     error(`Unable to retrieve last tag:\n${tagFetchError}`);
@@ -116,7 +116,8 @@ const checkFeatureBranchForChangedFiles = async (
 
 export async function lintChanged() {
   const lintConfig = pkg["lint-changed"];
-  const baseBranch = pkg["lint-changed-branch"] || "master";
+  const baseBranch = pkg["lint-changed-base-branch"] || "master";
+  const releaseBranch = pkg["lint-changed-release-branch"] || "master";
 
   // Warn if branch is not specified
   if (!lintConfig) {
@@ -135,8 +136,8 @@ export async function lintChanged() {
 
   // Determine changed files based on branch
   let changedFiles: string[] =
-    branch === baseBranch
-      ? await checkBaseBranchForChangedFiles()
+    branch === releaseBranch
+      ? await checkReleaseBranchForChangedFiles()
       : await checkFeatureBranchForChangedFiles(baseBranch, branch);
 
   // Exit early if no files have changed
