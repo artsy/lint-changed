@@ -26,7 +26,8 @@ const filterOutNonExistentFiles = (files: string[]) =>
   files.filter((file) => fs.existsSync(path.join(process.cwd(), file)));
 
 interface PkgConfig {
-  ["lint-changed-branch"]?: string;
+  ["lint-changed-base-branch"]?: string;
+  ["lint-changed-release-branch"]?: string;
   ["lint-changed"]?: {
     [glob: string]: string | string[];
   };
@@ -119,10 +120,17 @@ export async function lintChanged() {
   const baseBranch = pkg["lint-changed-base-branch"] || "master";
   const releaseBranch = pkg["lint-changed-release-branch"] || "master";
 
-  // Warn if branch is not specified
+  // Warn if basebranch is not specified
   if (!lintConfig) {
     warn(
-      "No `lint-changed-branch` found in package.json, falling back to 'master'"
+      "No `lint-changed-base-branch` found in package.json, falling back to 'master'"
+    );
+  }
+
+  // Warn if releasebranch is not specified
+  if (!lintConfig) {
+    warn(
+      "No `lint-changed-release-branch` found in package.json, falling back to 'master'"
     );
   }
 
