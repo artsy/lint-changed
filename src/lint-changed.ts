@@ -50,7 +50,7 @@ const git = (args: string) => runCommand(`git ${args}`);
 const getBranch = () => git("rev-parse --abbrev-ref HEAD");
 const getLastTag = () => git("describe --tags --abbrev=0 HEAD^");
 const getMergeBase = (baseBranch: string) =>
-  git("merge-base HEAD ${baseBranch}");
+  git(`merge-base HEAD ${baseBranch}`);
 
 const getChangedFiles = (event: string) =>
   git(`diff --name-only ${event}`).then((r) =>
