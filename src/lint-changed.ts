@@ -23,9 +23,11 @@ const error = (msg: string) => {
 };
 
 const filterOutNonExistentFiles = (files: string[]) =>
-  files.filter(file => fs.existsSync(path.join(process.cwd(), file)));
+  files.filter((file) => fs.existsSync(path.join(process.cwd(), file)));
 
 interface PkgConfig {
+  ["lint-changed-base-branch"]?: string;
+  ["lint-changed-release-branch"]?: string;
   ["lint-changed"]?: {
     [glob: string]: string | string[];
   };
@@ -48,20 +50,26 @@ const git = (args: string) => runCommand(`git ${args}`);
 
 const getBranch = () => git("rev-parse --abbrev-ref HEAD");
 const getLastTag = () => git("describe --tags --abbrev=0 HEAD^");
+const getMergeBase = (baseBranch: string) =>
+  git(`merge-base HEAD ${baseBranch}`);
+
 const getChangedFiles = (event: string) =>
-  git(`diff --name-only ${event}`).then(r => r.split("\n").filter(n => !!n));
+  git(`diff --name-only ${event}`).then((r) =>
+    r.split("\n").filter((n) => !!n)
+  );
 
 /**
- * Checks for files that have changed since the last tag on the master branch
+ * Checks for files that have changed since the last tag on the base branch
  */
-const checkMasterForChangedFiles = async () => {
+const checkReleaseBranchForChangedFiles = async () => {
+  log("Checking for files that have changed since last tag on release branch");
   const [tagFetchError, lastTag] = await to(getLastTag());
   if (tagFetchError) {
     error(`Unable to retrieve last tag:\n${tagFetchError}`);
     process.exit(1);
   }
   const [changedFilesError, changedFilesList] = await to(
-    getChangedFiles(`${lastTag}..HEAD`)
+    getChangedFiles(`${lastTag}...`)
   );
   if (changedFilesError || changedFilesList === undefined) {
     error(`Unable to get changed files since last tag:\n${changedFilesError}`);
@@ -79,22 +87,31 @@ const checkMasterForChangedFiles = async () => {
 };
 
 /**
- * Checks for  files that have changed since origin/master
+ * Checks for  files that have changed since baseBranch
  */
-const checkFeatureBranchForChangedFiles = async (branch: string) => {
+const checkFeatureBranchForChangedFiles = async (
+  baseBranch: string,
+  branch: string
+) => {
+  log(`Checking for files that have changed on ${branch} since ${baseBranch}`);
+  const [mergeBaseError, mergeBase] = await to(getMergeBase(baseBranch));
+  if (mergeBaseError) {
+    error(`Unable to retrieve merge base:\n${mergeBaseError}`);
+    process.exit(1);
+  }
   const [changedFilesError, changedFilesList] = await to(
-    getChangedFiles(`master...${branch}`)
+    getChangedFiles(`${branch} ${mergeBase}`)
   );
   if (changedFilesError || changedFilesList === undefined) {
     error(
-      `Unable to get changed files since origin/master:\n${changedFilesError}`
+      `Unable to get changed files since ${baseBranch}:\n${changedFilesError}`
     );
     process.exit(1);
   }
   const existingChangedFiles = filterOutNonExistentFiles(changedFilesList);
   if (existingChangedFiles.length > 0) {
     log(
-      `Files changed since origin/master:\n${dim(
+      `Files changed since ${baseBranch}:\n${dim(
         existingChangedFiles.join("\n")
       )}\n`
     );
@@ -104,10 +121,26 @@ const checkFeatureBranchForChangedFiles = async (branch: string) => {
 
 export async function lintChanged() {
   const lintConfig = pkg["lint-changed"];
+  const baseBranch = pkg["lint-changed-base-branch"] || "master";
+  const releaseBranch = pkg["lint-changed-release-branch"] || "master";
+
+  // Warn if basebranch is not specified
+  if (!lintConfig) {
+    warn(
+      "No `lint-changed-base-branch` found in package.json, falling back to 'master'"
+    );
+  }
+
+  // Warn if releasebranch is not specified
+  if (!lintConfig) {
+    warn(
+      "No `lint-changed-release-branch` found in package.json, falling back to 'master'"
+    );
+  }
 
   // Fail if nothing is configured to run
   if (!lintConfig) {
-    warn("No `lint-config` found in package.json");
+    warn("No `lint-changed` found in package.json");
     process.exit(1);
   }
 
@@ -115,9 +148,9 @@ export async function lintChanged() {
 
   // Determine changed files based on branch
   let changedFiles: string[] =
-    branch === "master"
-      ? await checkMasterForChangedFiles()
-      : await checkFeatureBranchForChangedFiles(branch);
+    branch === releaseBranch
+      ? await checkReleaseBranchForChangedFiles()
+      : await checkFeatureBranchForChangedFiles(baseBranch, branch);
 
   // Exit early if no files have changed
   if (changedFiles.length === 0) {
@@ -130,12 +163,12 @@ export async function lintChanged() {
     .forEach(async ([glob, commands]) => {
       µ(changedFiles, glob, {
         dot: true,
-        matchBase: !glob.includes("/")
-      }).forEach(file => {
-        pEach(commands, command => {
+        matchBase: !glob.includes("/"),
+      }).forEach((file) => {
+        pEach(commands, (command) => {
           log(`${command} ${file}`);
           return limit(() =>
-            runCommand(`${command} ${file}`).then(o =>
+            runCommand(`${command} ${file}`).then((o) =>
               console.log(blue(dim(o)))
             )
           );
