@@ -1,3 +1,28 @@
+# v3.1.0 (Tue Jul 14 2020)
+
+#### 🚀  Enhancement
+
+- Feature/add branch config parameter [#23](https://github.com/artsy/lint-changed/pull/23) ([@alexanderjeurissen](https://github.com/alexanderjeurissen))
+
+#### 🏠  Internal
+
+- Update dep typescript from 3.9.5 to v3.9.6 [#25](https://github.com/artsy/lint-changed/pull/25) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 3.9.3 to v3.9.5 [#21](https://github.com/artsy/lint-changed/pull/21) ([@renovate-bot](https://github.com/renovate-bot))
+- Update yarn orb from 4.0.2 to v5 [#20](https://github.com/artsy/lint-changed/pull/20) ([@renovate-bot](https://github.com/renovate-bot) [@renovate[bot]](https://github.com/renovate[bot]))
+- Update dep typescript from 3.9.2 to v3.9.3 [#19](https://github.com/artsy/lint-changed/pull/19) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 3.8.3 to v3.9.2 [#18](https://github.com/artsy/lint-changed/pull/18) ([@renovate-bot](https://github.com/renovate-bot))
+- Update auto orb from 1.2.1 to v1.3.2 [#17](https://github.com/artsy/lint-changed/pull/17) ([@renovate-bot](https://github.com/renovate-bot))
+- Update auto orb from 1.2.0 to v1.2.1 [#15](https://github.com/artsy/lint-changed/pull/15) ([@renovate-bot](https://github.com/renovate-bot))
+- Update auto orb from 1.1.0 to v1.2.0 [#14](https://github.com/artsy/lint-changed/pull/14) ([@renovate-bot](https://github.com/renovate-bot))
+
+#### Authors: 3
+
+- [@renovate[bot]](https://github.com/renovate[bot])
+- Alexander Jeurissen ([@alexanderjeurissen](https://github.com/alexanderjeurissen))
+- WhiteSource Renovate ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v3.0.4 (Sun Mar 22 2020)
 
 #### 🐛  Bug Fix
