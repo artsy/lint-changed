@@ -1,3 +1,37 @@
+# v3.2.0 (Thu Jun 17 2021)
+
+#### 🚀  Enhancement
+
+- Error logging suggestion [#41](https://github.com/artsy/lint-changed/pull/41) ([@RecuencoJones](https://github.com/RecuencoJones))
+
+#### 🏠  Internal
+
+- Update dep typescript from 4.1.3 to v4.1.4 [#33](https://github.com/artsy/lint-changed/pull/33) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.3.2 to v4.3.3 [#40](https://github.com/artsy/lint-changed/pull/40) ([@renovate-bot](https://github.com/renovate-bot))
+- Create LICENSE [#38](https://github.com/artsy/lint-changed/pull/38) ([@zephraph](https://github.com/zephraph))
+- Update dep typescript from 4.2.3 to v4.2.4 [#37](https://github.com/artsy/lint-changed/pull/37) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.2.2 to v4.2.3 [#36](https://github.com/artsy/lint-changed/pull/36) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.1.5 to v4.2.2 [#35](https://github.com/artsy/lint-changed/pull/35) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.1.4 to v4.1.5 [#34](https://github.com/artsy/lint-changed/pull/34) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.2.4 to v4.3.2 [#39](https://github.com/artsy/lint-changed/pull/39) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.1.2 to v4.1.3 [#32](https://github.com/artsy/lint-changed/pull/32) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.0.5 to v4.1.2 [#31](https://github.com/artsy/lint-changed/pull/31) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.0.3 to v4.0.5 [#30](https://github.com/artsy/lint-changed/pull/30) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.0.2 to v4.0.3 [#29](https://github.com/artsy/lint-changed/pull/29) ([@renovate-bot](https://github.com/renovate-bot))
+- Fix broken links in README [#28](https://github.com/artsy/lint-changed/pull/28) ([@starsirius](https://github.com/starsirius))
+- Update dep typescript from 3.9.7 to v4 [#27](https://github.com/artsy/lint-changed/pull/27) ([@renovate-bot](https://github.com/renovate-bot) [@renovate[bot]](https://github.com/renovate[bot]))
+- Update dep typescript from 3.9.6 to v3.9.7 [#26](https://github.com/artsy/lint-changed/pull/26) ([@renovate-bot](https://github.com/renovate-bot))
+
+#### Authors: 5
+
+- [@renovate[bot]](https://github.com/renovate[bot])
+- Chung-Yi Chi ([@starsirius](https://github.com/starsirius))
+- David Recuenco ([@RecuencoJones](https://github.com/RecuencoJones))
+- Justin Bennett ([@zephraph](https://github.com/zephraph))
+- WhiteSource Renovate ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v3.1.0 (Tue Jul 14 2020)
 
 #### 🚀  Enhancement
