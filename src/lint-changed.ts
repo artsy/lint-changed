@@ -39,11 +39,15 @@ const pkg: PkgConfig = JSON.parse(
 );
 
 async function runCommand(cmdString: string) {
-  const { stdout, stderr } = await run(cmdString);
-  if (stderr) {
-    throw new Error(stderr);
+  try {
+    const { stdout, stderr } = await run(cmdString);
+    if (stderr) {
+      throw new Error(stderr);
+    }
+    return stdout.trim();
+  } catch ({ stdout }) {
+    throw new Error(stdout);
   }
-  return stdout.trim();
 }
 
 const git = (args: string) => runCommand(`git ${args}`);
@@ -158,6 +162,8 @@ export async function lintChanged() {
     return;
   }
 
+  let errors = 0;
+
   Object.entries(lintConfig)
     .map(([glob, cmds]) => [glob, Array.isArray(cmds) ? cmds : [cmds]])
     .forEach(async ([glob, commands]) => {
@@ -168,10 +174,20 @@ export async function lintChanged() {
         pEach(commands, (command) => {
           log(`${command} ${file}`);
           return limit(() =>
-            runCommand(`${command} ${file}`).then((o) =>
-              console.log(blue(dim(o)))
-            )
+            runCommand(`${command} ${file}`)
+              .then((o) =>
+                console.log(blue(dim(o)))
+              )
+              .catch((o) => {
+                console.log(red(o));
+                errors++;
+              })
           );
+        })
+        .then(() => {
+          if (errors) {
+            process.exit(1);
+          }
         });
       });
     });
