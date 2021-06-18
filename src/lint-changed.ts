@@ -3,8 +3,11 @@ import path from "path";
 import { exec } from "child_process";
 import fs from "fs";
 import µ from "micromatch";
+import pLimit from "p-limit";
 import to from "await-to-js";
 import { red, yellow, blue, dim } from "kleur";
+
+const limit = pLimit(8);
 
 const log = (msg: string) => {
   console.log(blue(`[lint-changed]: ${msg}`));
@@ -167,7 +170,7 @@ export async function lintChanged() {
       matchBase: !glob.includes("/"),
     });
 
-    return await Promise.all(files.map(async (file) => {
+    return await Promise.all(files.map((file) => limit(async () => {
       // Stop running commands for current file on first command that fails
       try {
         for (const command of commands) {
@@ -175,10 +178,10 @@ export async function lintChanged() {
           console.log(blue(dim(o)));
         }
       } catch (e) {
-        error(e.message);
+        error(e.message.trimLeft());
         return e;
       }
-    }));
+    })));
   }));
 
   // In case there were any errors during execution, make sure to exit with error
