@@ -1,3 +1,20 @@
+# v3.3.0 (Fri Jun 18 2021)
+
+#### 🚀  Enhancement
+
+- UPDATE iterating logic [#43](https://github.com/artsy/lint-changed/pull/43) ([@RecuencoJones](https://github.com/RecuencoJones))
+
+#### 🏠  Internal
+
+- Update dep typescript from 4.3.3 to v4.3.4 [#42](https://github.com/artsy/lint-changed/pull/42) ([@renovate-bot](https://github.com/renovate-bot))
+
+#### Authors: 2
+
+- David Recuenco ([@RecuencoJones](https://github.com/RecuencoJones))
+- WhiteSource Renovate ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v3.2.0 (Thu Jun 17 2021)
 
 #### 🚀  Enhancement
