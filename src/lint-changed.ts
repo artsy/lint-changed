@@ -3,12 +3,8 @@ import path from "path";
 import { exec } from "child_process";
 import fs from "fs";
 import µ from "micromatch";
-import pEach from "p-each-series";
-import pLimit from "p-limit";
 import to from "await-to-js";
 import { red, yellow, blue, dim } from "kleur";
-
-const limit = pLimit(8);
 
 const log = (msg: string) => {
   console.log(blue(`[lint-changed]: ${msg}`));
@@ -162,33 +158,31 @@ export async function lintChanged() {
     return;
   }
 
-  let errors = 0;
+  const globAndCommands = Object.entries(lintConfig)
+    .map(([glob, cmds]) => [glob, Array.isArray(cmds) ? cmds : [cmds]]);
 
-  Object.entries(lintConfig)
-    .map(([glob, cmds]) => [glob, Array.isArray(cmds) ? cmds : [cmds]])
-    .forEach(async ([glob, commands]) => {
-      µ(changedFiles, glob, {
-        dot: true,
-        matchBase: !glob.includes("/"),
-      }).forEach((file) => {
-        pEach(commands, (command) => {
-          log(`${command} ${file}`);
-          return limit(() =>
-            runCommand(`${command} ${file}`)
-              .then((o) =>
-                console.log(blue(dim(o)))
-              )
-              .catch((o) => {
-                console.log(red(o));
-                errors++;
-              })
-          );
-        })
-        .then(() => {
-          if (errors) {
-            process.exit(1);
-          }
-        });
-      });
+  const results = await Promise.all(globAndCommands.map(async ([glob, commands]) => {
+    const files = µ(changedFiles, glob, {
+      dot: true,
+      matchBase: !glob.includes("/"),
     });
+
+    return await Promise.all(files.map(async (file) => {
+      // Stop running commands for current file on first command that fails
+      try {
+        for (const command of commands) {
+          const o = await runCommand(`${command} ${file}`);
+          console.log(blue(dim(o)));
+        }
+      } catch (e) {
+        error(e.message);
+        return e;
+      }
+    }));
+  }));
+
+  // In case there were any errors during execution, make sure to exit with error
+  if (results.some((command) => command.some((e) => e))) {
+    process.exit(1);
+  }
 }
