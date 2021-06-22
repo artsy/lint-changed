@@ -1,3 +1,15 @@
+# v3.4.0 (Tue Jun 22 2021)
+
+#### 🚀  Enhancement
+
+- Switch assignee to Chris [#44](https://github.com/artsy/lint-changed/pull/44) ([@zephraph](https://github.com/zephraph))
+
+#### Authors: 1
+
+- Justin Bennett ([@zephraph](https://github.com/zephraph))
+
+---
+
 # v3.3.0 (Fri Jun 18 2021)
 
 #### 🚀  Enhancement
