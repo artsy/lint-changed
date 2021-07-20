@@ -42,7 +42,7 @@ Artsy know what branch to use as a base branch.
 
 ```json
 {
-  "lint-changed-branch": "development",
+  "lint-changed-base-branch": "development",
   "lint-changed": {
     "*.js": ["eslint", "prettier -c"],
     "*.ts": "tslint"
