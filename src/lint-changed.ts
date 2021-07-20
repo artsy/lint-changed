@@ -6,6 +6,8 @@ import µ from "micromatch";
 import pLimit from "p-limit";
 import to from "await-to-js";
 import { red, yellow, blue, dim } from "kleur";
+import { Command } from "commander";
+
 
 const limit = pLimit(8);
 
@@ -123,9 +125,17 @@ const checkFeatureBranchForChangedFiles = async (
 };
 
 export async function lintChanged() {
+  const program = new Command();
+  program
+    .option('-B, --base-branch', 'Base Branch')
+    .option('-R, --release-branch <type>', 'Release Branch');
+
+  program.parse(process.argv);
+  const options = program.opts();
+
   const lintConfig = pkg["lint-changed"];
-  const baseBranch = process.env.npm_config_baseBranch || pkg["lint-changed-base-branch"] || "master";
-  const releaseBranch = process.env.npm_config_releaseBranch || pkg["lint-changed-release-branch"] || "master";
+  const baseBranch = options.baseBranch || pkg["lint-changed-base-branch"] || "master";
+  const releaseBranch = options.releaseBranch || pkg["lint-changed-release-branch"] || "master";
 
   // Warn if basebranch is not specified
   if (!lintConfig) {
