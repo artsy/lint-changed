@@ -124,8 +124,8 @@ const checkFeatureBranchForChangedFiles = async (
 
 export async function lintChanged() {
   const lintConfig = pkg["lint-changed"];
-  const baseBranch = pkg["lint-changed-base-branch"] || "master";
-  const releaseBranch = pkg["lint-changed-release-branch"] || "master";
+  const baseBranch = process.env.npm_config_baseBranch || pkg["lint-changed-base-branch"] || "master";
+  const releaseBranch = process.env.npm_config_releaseBranch || pkg["lint-changed-release-branch"] || "master";
 
   // Warn if basebranch is not specified
   if (!lintConfig) {
