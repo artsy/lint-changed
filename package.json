@@ -2,6 +2,9 @@
   "name": "@artsy/lint-changed",
   "version": "3.4.0",
   "description": "Lint only files that have changed since last update",
+  "engines": {
+    "node": ">=12"
+  },
   "main": "index.js",
   "bin": {
     "lint-changed": "./bin/lint-changed.js"
