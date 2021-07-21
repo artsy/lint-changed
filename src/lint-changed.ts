@@ -127,7 +127,7 @@ const checkFeatureBranchForChangedFiles = async (
 export async function lintChanged() {
   const program = new Command();
   program
-    .option('-B, --base-branch', 'Base Branch')
+    .option('-B, --base-branch <type>', 'Base Branch')
     .option('-R, --release-branch <type>', 'Release Branch');
 
   program.parse(process.argv);
