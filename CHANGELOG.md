@@ -1,3 +1,34 @@
+# v4.0.0 (Mon Jul 26 2021)
+
+#### 💥  Breaking Change
+
+- Command line support [#46](https://github.com/artsy/lint-changed/pull/46) ([@neolivz](https://github.com/neolivz))
+
+#### 🚀  Enhancement
+
+- fix: Add engines to lock [#48](https://github.com/artsy/lint-changed/pull/48) ([@damassi](https://github.com/damassi))
+
+#### 🐛  Bug Fix
+
+- fix: Remove package lock [#47](https://github.com/artsy/lint-changed/pull/47) ([@damassi](https://github.com/damassi))
+
+#### ⚠️  Pushed to `master`
+
+- publish: 4.0.0 ([@damassi](https://github.com/damassi))
+
+#### 🏠  Internal
+
+- Update auto orb from 1.3.2 to v1.4.0 [#49](https://github.com/artsy/lint-changed/pull/49) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dep typescript from 4.3.4 to v4.3.5 [#45](https://github.com/artsy/lint-changed/pull/45) ([@renovate-bot](https://github.com/renovate-bot))
+
+#### Authors: 3
+
+- Christopher Pappas ([@damassi](https://github.com/damassi))
+- Jishnu Viswanath ([@neolivz](https://github.com/neolivz))
+- WhiteSource Renovate ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v3.4.0 (Tue Jun 22 2021)
 
 #### 🚀  Enhancement
