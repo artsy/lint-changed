@@ -134,20 +134,20 @@ export async function lintChanged() {
   const options = program.opts();
 
   const lintConfig = pkg["lint-changed"];
-  const baseBranch = options.baseBranch || pkg["lint-changed-base-branch"] || "master";
-  const releaseBranch = options.releaseBranch || pkg["lint-changed-release-branch"] || "master";
+  const baseBranch = options.baseBranch || pkg["lint-changed-base-branch"] || "main";
+  const releaseBranch = options.releaseBranch || pkg["lint-changed-release-branch"] || "main";
 
   // Warn if basebranch is not specified
   if (!lintConfig) {
     warn(
-      "No `lint-changed-base-branch` found in package.json, falling back to 'master'"
+      "No `lint-changed-base-branch` found in package.json, falling back to 'main'"
     );
   }
 
   // Warn if releasebranch is not specified
   if (!lintConfig) {
     warn(
-      "No `lint-changed-release-branch` found in package.json, falling back to 'master'"
+      "No `lint-changed-release-branch` found in package.json, falling back to 'main'"
     );
   }
 
