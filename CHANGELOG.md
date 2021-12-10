@@ -1,3 +1,15 @@
+# v5.0.2 (Fri Dec 10 2021)
+
+#### 🐛  Bug Fix
+
+- chore(inclusive-language): master -> main [#55](https://github.com/artsy/lint-changed/pull/55) ([@damassi](https://github.com/damassi))
+
+#### Authors: 1
+
+- Christopher Pappas ([@damassi](https://github.com/damassi))
+
+---
+
 # v5.0.1 (Fri Dec 10 2021)
 
 #### ⚠️ Pushed to `main`
