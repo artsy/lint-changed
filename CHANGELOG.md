@@ -1,3 +1,23 @@
+# v5.0.1 (Fri Dec 10 2021)
+
+#### ⚠️ Pushed to `master`
+
+- Update renovate.json ([@damassi](https://github.com/damassi))
+
+#### 🏠  Internal
+
+- chore(deps): update auto orb from 1.4.0 to v2 [#53](https://github.com/artsy/lint-changed/pull/53) ([@renovate-bot](https://github.com/renovate-bot) [@renovate[bot]](https://github.com/renovate[bot]))
+- chore(deps): update yarn orb from 5.1.3 to v6 [#50](https://github.com/artsy/lint-changed/pull/50) ([@renovate-bot](https://github.com/renovate-bot) [@renovate[bot]](https://github.com/renovate[bot]))
+- chore(deps): update dep @artsy/auto-config from 1.0.2 to v1.1.0 [#52](https://github.com/artsy/lint-changed/pull/52) ([@renovate-bot](https://github.com/renovate-bot) [@renovate[bot]](https://github.com/renovate[bot]))
+
+#### Authors: 3
+
+- [@renovate[bot]](https://github.com/renovate[bot])
+- Christopher Pappas ([@damassi](https://github.com/damassi))
+- WhiteSource Renovate ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v4.0.0 (Mon Jul 26 2021)
 
 #### 💥  Breaking Change
