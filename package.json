@@ -1,6 +1,6 @@
 {
   "name": "@artsy/lint-changed",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Lint only files that have changed since last update",
   "engines": {
     "node": ">=12"
