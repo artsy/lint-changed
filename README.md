@@ -2,7 +2,7 @@
 
 _This package is inspired heavily by [lint-staged](https://github.com/okonet/lint-staged#readme). Also checkout [pull-lock](https://github.com/orta/pull-lock)._
 
-We waste a lot of time of CI time doing unnecessary tasks. Why lint _all_ your files when git already tells you which files have changed? **@artsy/lint-changed** helps by only running lint tags for the files that have changed since master (when not on master) or since the last tag (if you _are_ on master).
+We waste a lot of time of CI time doing unnecessary tasks. Why lint _all_ your files when git already tells you which files have changed? **@artsy/lint-changed** helps by only running lint tags for the files that have changed since main (when not on main) or since the last tag (if you _are_ on main).
 
 ## Basic Configuration
 
@@ -37,7 +37,7 @@ Note that `baz.json` would be skipped because it doesn't match with any patterns
 
 ## Configuring base branch
 
-By default Artsy will use `master` as the base branch for detecting changes. In case your default branch is not `master` you can let
+By default Artsy will use `main` as the base branch for detecting changes. In case your default branch is not `main` you can let
 Artsy know what branch to use as a base branch.
 
 ```json
@@ -69,8 +69,8 @@ You can learn more about this work from [our blog][footer_blog] and by following
 our [job postings][footer_jobs]!
 
 [footer_website]: https://www.artsy.net/
-[footer_principles]: https://github.com/artsy/README/blob/master/culture/engineering-principles.md
-[footer_open]: https://github.com/artsy/README/blob/master/culture/engineering-principles.md#open-source-by-default
+[footer_principles]: https://github.com/artsy/README/blob/main/culture/engineering-principles.md
+[footer_open]: https://github.com/artsy/README/blob/main/culture/engineering-principles.md#open-source-by-default
 [footer_blog]: https://artsy.github.io/
 [footer_twitter]: https://twitter.com/ArtsyOpenSource
 [footer_api]: https://developers.artsy.net/

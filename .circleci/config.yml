@@ -19,7 +19,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
           requires:
             - yarn/type-check
             - yarn/update-cache
@@ -28,7 +28,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
           requires:
             - yarn/type-check
             - yarn/update-cache

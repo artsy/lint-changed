@@ -1,6 +1,6 @@
 # v5.0.1 (Fri Dec 10 2021)
 
-#### ⚠️ Pushed to `master`
+#### ⚠️ Pushed to `main`
 
 - Update renovate.json ([@damassi](https://github.com/damassi))
 
@@ -32,7 +32,7 @@
 
 - fix: Remove package lock [#47](https://github.com/artsy/lint-changed/pull/47) ([@damassi](https://github.com/damassi))
 
-#### ⚠️  Pushed to `master`
+#### ⚠️  Pushed to `main`
 
 - publish: 4.0.0 ([@damassi](https://github.com/damassi))
 
@@ -153,7 +153,7 @@
 
 #### 🐛  Bug Fix
 
-- Lint only files changed since branch off of master [#12](https://github.com/artsy/lint-changed/pull/12) ([@zephraph](https://github.com/zephraph))
+- Lint only files changed since branch off of main [#12](https://github.com/artsy/lint-changed/pull/12) ([@zephraph](https://github.com/zephraph))
 
 #### 📝  Documentation
 
@@ -189,7 +189,7 @@
 
 #### 🐛  Bug Fix
 
-- Fix error when trying to find files that changed on master [#3](https://github.com/artsy/lint-changed/pull/3) ([@zephraph](https://github.com/zephraph))
+- Fix error when trying to find files that changed on main [#3](https://github.com/artsy/lint-changed/pull/3) ([@zephraph](https://github.com/zephraph))
 
 #### Authors: 1
 
