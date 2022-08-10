@@ -1,3 +1,15 @@
+# v5.1.2 (Wed Aug 10 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Update README.md ([@damassi](https://github.com/damassi))
+
+#### Authors: 1
+
+- Christopher Pappas ([@damassi](https://github.com/damassi))
+
+---
+
 # v5.1.1 (Wed Aug 10 2022)
 
 #### ⚠️ Pushed to `main`
