@@ -26,7 +26,7 @@ Add a `lint-changed` key to your `package.json` with a pattern of files to match
 }
 ```
 
-And then add a new `package.json` script run `lint-changed` on CI:
+And then add a new `package.json` script to run `lint-changed` on CI:
 
 ```json
 {
