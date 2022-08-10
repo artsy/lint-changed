@@ -21,7 +21,7 @@ Add a `lint-changed` key to your `package.json` with a pattern of files to match
   "lint-changed": {
     "*.js": ["eslint", "prettier -c"],
     "*.ts": "tslint",
-    "*.test.ts": "jest" // only run changed tests
+    "*.test.ts": "jest" 
   }
 }
 ```
