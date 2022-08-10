@@ -10,7 +10,7 @@ We waste a lot of time of CI time doing unnecessary tasks. Why lint _all_ your f
 yarn add -D @artsy/lint-changed
 ```
 
-The general purpose of this library is to run on CI, to reduce the amount of time between runs. It's similar to `lint-staged` in that it will take a list files that have changed (the diff between main branch and a PR, for example) and pipe them into a command. So rather than running _all_ tests on CI one could instead run just the tests that have changed. See below for an example.
+The general purpose of this library is to run on CI, to reduce the amount of time between runs. It's similar to `lint-staged` in that it will take a list files that have changed (the diff between main branch and a PR, for example) and pipe them into a command. So rather than running _all_ tests on CI one could instead run just the tests that have changed. See below for an example as well as the [example app](/example).
 
 ## Basic Configuration
 
@@ -22,6 +22,16 @@ Add a `lint-changed` key to your `package.json` with a pattern of files to match
     "*.js": ["eslint", "prettier -c"],
     "*.ts": "tslint",
     "*.test.ts": "jest" // only run changed tests
+  }
+}
+```
+
+And then add a new `package.json` script run `lint-changed` on CI:
+
+```json
+{
+  "scripts": {
+    "ci": "yarn lint-changed"
   }
 }
 ```
