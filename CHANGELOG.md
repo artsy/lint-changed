@@ -1,3 +1,24 @@
+# v5.1.0 (Wed Aug 10 2022)
+
+#### 🚀  Enhancement
+
+- docs(readme): Add more context [#61](https://github.com/artsy/lint-changed/pull/61) ([@damassi](https://github.com/damassi))
+
+#### 🏠  Internal
+
+- chore(deps): update dep @artsy/auto-config from 1.1.0 to v1.2.0 [#57](https://github.com/artsy/lint-changed/pull/57) ([@renovate-bot](https://github.com/renovate-bot) [@renovate[bot]](https://github.com/renovate[bot]))
+- chore(deps): update yarn orb from 6.1.0 to v6.2.0 [#59](https://github.com/artsy/lint-changed/pull/59) ([@renovate[bot]](https://github.com/renovate[bot]))
+- chore(deps): update auto orb from 2.0.0 to v2.1.0 [#58](https://github.com/artsy/lint-changed/pull/58) ([@renovate-bot](https://github.com/renovate-bot))
+- chore(deps): update yarn orb from 6.0.0 to v6.1.0 [#56](https://github.com/artsy/lint-changed/pull/56) ([@renovate-bot](https://github.com/renovate-bot))
+
+#### Authors: 3
+
+- [@renovate[bot]](https://github.com/renovate[bot])
+- Christopher Pappas ([@damassi](https://github.com/damassi))
+- WhiteSource Renovate ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v5.0.2 (Fri Dec 10 2021)
 
 #### 🐛  Bug Fix
