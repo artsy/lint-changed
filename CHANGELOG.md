@@ -1,3 +1,19 @@
+# v5.1.1 (Wed Aug 10 2022)
+
+#### ⚠️ Pushed to `main`
+
+- Update README.md ([@damassi](https://github.com/damassi))
+
+#### 🏠  Internal
+
+- docs(example): Add example app [#62](https://github.com/artsy/lint-changed/pull/62) ([@damassi](https://github.com/damassi))
+
+#### Authors: 1
+
+- Christopher Pappas ([@damassi](https://github.com/damassi))
+
+---
+
 # v5.1.0 (Wed Aug 10 2022)
 
 #### 🚀  Enhancement
