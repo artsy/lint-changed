@@ -10,7 +10,7 @@
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest"
   },
   "devDependencies": {
-    "@artsy/lint-changed": "5.1.2",
+    "@artsy/lint-changed": "5.2.0",
     "jest": "^28.1.3",
     "prettier": "^2.7.1"
   },
