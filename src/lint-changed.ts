@@ -40,15 +40,9 @@ const pkg: PkgConfig = JSON.parse(
 );
 
 async function runCommand(cmdString: string) {
-  try {
-    const { stdout, stderr } = await run(cmdString);
-    if (stderr) {
-      throw new Error(stderr);
-    }
-    return stdout.trim();
-  } catch ({ stdout }) {
-    throw new Error(stdout);
-  }
+  const { stdout } = await run(cmdString);
+
+  return stdout.trim();
 }
 
 const git = (args: string) => runCommand(`git ${args}`);
