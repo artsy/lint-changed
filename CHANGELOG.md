@@ -1,3 +1,20 @@
+# v5.2.0 (Mon Nov 07 2022)
+
+#### 🚀  Enhancement
+
+- UPDATE throw only on exec errors, ignore stderr [#67](https://github.com/artsy/lint-changed/pull/67) ([@RecuencoJones](https://github.com/RecuencoJones))
+
+#### 🏠  Internal
+
+- chore(deps): update dep @artsy/lint-changed from 5.1.0 to v5.1.2 [#63](https://github.com/artsy/lint-changed/pull/63) ([@renovate[bot]](https://github.com/renovate[bot]))
+
+#### Authors: 2
+
+- [@renovate[bot]](https://github.com/renovate[bot])
+- David Recuenco ([@RecuencoJones](https://github.com/RecuencoJones))
+
+---
+
 # v5.1.2 (Wed Aug 10 2022)
 
 #### ⚠️ Pushed to `main`
