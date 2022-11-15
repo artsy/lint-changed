@@ -1,6 +1,6 @@
 import util from "util";
 import path from "path";
-import { exec } from "child_process";
+import { exec, ExecException } from "child_process";
 import fs from "fs";
 import µ from "micromatch";
 import pLimit from "p-limit";
@@ -8,6 +8,10 @@ import to from "await-to-js";
 import { red, yellow, blue, dim } from "kleur";
 import { Command } from "commander";
 
+type ExecExceptionWithOutput = ExecException & {
+  stdout: string;
+  stderr: string;
+};
 
 const limit = pLimit(8);
 
@@ -182,7 +186,14 @@ export async function lintChanged() {
           console.log(blue(dim(o)));
         }
       } catch (e) {
-        error(e.message.trimLeft());
+        const exception = e as ExecExceptionWithOutput;
+
+        error(exception.message.trimLeft());
+
+        if (exception.stdout) {
+          error(exception.stdout.trimLeft());
+        }
+
         return e;
       }
     })));
