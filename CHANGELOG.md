@@ -1,3 +1,20 @@
+# v5.3.0 (Tue Nov 15 2022)
+
+#### 🚀  Enhancement
+
+- ADD output message for linter errors [#69](https://github.com/artsy/lint-changed/pull/69) ([@RecuencoJones](https://github.com/RecuencoJones))
+
+#### 🏠  Internal
+
+- chore(deps): update dep @artsy/lint-changed from 5.1.2 to v5.2.0 [#68](https://github.com/artsy/lint-changed/pull/68) ([@renovate[bot]](https://github.com/renovate[bot]))
+
+#### Authors: 2
+
+- [@renovate[bot]](https://github.com/renovate[bot])
+- David Recuenco ([@RecuencoJones](https://github.com/RecuencoJones))
+
+---
+
 # v5.2.0 (Mon Nov 07 2022)
 
 #### 🚀  Enhancement
