@@ -42,6 +42,6 @@
     "@artsy/auto-config": "1.2.0",
     "@types/micromatch": "4.0.1",
     "@types/node": "13.7.7",
-    "typescript": "5.0.4"
+    "typescript": "5.1.3"
   }
 }
