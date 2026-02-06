@@ -1,3 +1,21 @@
+# v5.4.1 (Fri Feb 06 2026)
+
+#### 🐛  Bug Fix
+
+- feat: add triggers to conventional commits check [#93](https://github.com/artsy/lint-changed/pull/93) ([@mc-jones](https://github.com/mc-jones))
+
+#### 🏠  Internal
+
+- chore(deps): update dep @artsy/lint-changed from 5.3.0 to v5.4.0 [#92](https://github.com/artsy/lint-changed/pull/92) ([@renovate[bot]](https://github.com/renovate[bot]))
+- chore(deps): update dep auto from 2.2.0 to v2.3.0 [#87](https://github.com/artsy/lint-changed/pull/87) ([@renovate[bot]](https://github.com/renovate[bot]))
+
+#### Authors: 2
+
+- [@renovate[bot]](https://github.com/renovate[bot])
+- Matt Jones ([@mc-jones](https://github.com/mc-jones))
+
+---
+
 # v5.4.0 (Wed Nov 19 2025)
 
 #### 🚀  Enhancement
