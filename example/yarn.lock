@@ -10,10 +10,10 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@artsy/lint-changed@5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@artsy/lint-changed/-/lint-changed-5.4.0.tgz#21f0e8d17854b01a32c57c68abfd37fc9851917e"
-  integrity sha512-m2Q9waHLjeZJ52hjWBB2p4D23h/kFmZ4IfYJvUA3BxW9VIZ/pu5DKZ7XN8IfhDLWGwYfvRcTfhh65e90XAyMEQ==
+"@artsy/lint-changed@5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@artsy/lint-changed/-/lint-changed-5.4.1.tgz#765e0bd175cf66c28c82cd55f74c2aee9c9445f5"
+  integrity sha512-zo1h6cFP/yVzyHXl1AIZWKWePqgGpRzX5y19jAAxwXS485eKuozXqBgQH7xEdfuKy9oY3spT6RitJ4Ykjh2M/Q==
   dependencies:
     await-to-js "^2.1.1"
     commander "^8.0.0"
